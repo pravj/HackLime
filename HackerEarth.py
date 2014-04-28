@@ -19,6 +19,7 @@ class HackerEarth:
 		self.key = self.SecretKey()
 		self.source = self.SourceCode(source_file)
 		self.lang = self.Language(source_file)
+		self.file = source_file
 
 		self.data =	{
     		'client_secret': self.key,
@@ -62,6 +63,7 @@ class HackerEarth:
 
 		# response in JSON format
 		res = urllib2.urlopen(req)
+		print res.getcode()
 		res = json.load(res)
 
 		return res

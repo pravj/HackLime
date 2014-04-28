@@ -1,0 +1,16 @@
+[
+	{
+		"keys": ["ctrl+shift+c"],
+		"command": "hacklime_compile"
+	},
+
+	{
+		"keys": ["ctrl+shift+r"],
+		"command": "hacklime_run"
+	},
+
+	{
+		"keys": ["ctrl+alt+h"],
+		"command": "hacklime_help"
+	}
+]

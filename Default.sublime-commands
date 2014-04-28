@@ -1,0 +1,16 @@
+[
+	{
+		"caption": "Compile a File",
+		"command": "hacklime_compile"
+	},
+
+	{
+		"caption": "Run a File",
+		"command": "hacklime_run"
+	},
+
+	{
+		"caption": "Help guide for HackLime",
+		"command": "hacklime_help"
+	}
+]
