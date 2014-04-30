@@ -22,20 +22,27 @@ import HelpGuide
 # class for code-compile command
 class HacklimeCompileCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
+		while(self.view.is_loading()):
+			pass
 		filepath = self.view.file_name().encode("utf-8")
 		#print (filepath)  maybe you are not waiting for it to load all
 		instance = HackerEarth(filepath)
+		print instance.lang
 
-		# here goes the result
+		# HackerEarth API response and text to write in output
+		response = instance.Contact()
+		print response
+		print 'is this before response'
+		output_text = instance.Output(response)
+		print output_text
 
 		"""
 		creates file for output response, if not present already
 		output file will have a prefix 'output_' to main file
 		"""
 
-		text = 'is that compiling'
 		# shows the output buffer/file
-		output = HacklimeOutput(self.view, file_handler(filepath), text)
+		output = HacklimeOutput(self.view, file_handler(filepath), output_text)
 		output.show()
 
 
@@ -46,12 +53,14 @@ class HacklimeRunCommand(sublime_plugin.TextCommand):
 		#print (filepath)  maybe you are not waiting for it to load all
 		instance = HackerEarth(filepath)
 
-		# here goes the result
-
-		text = 'is that running'
+		response = instance.Contact()
+		print response
+		print 'is this before response'
+		output_text = instance.Output(response)
+		print output_text
 
 		# shows the output buffer/file
-		output = HacklimeOutput(self.view, file_handler(filepath), text)
+		output = HacklimeOutput(self.view, file_handler(filepath), output_text)
 		output.show()
 
 

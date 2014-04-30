@@ -67,3 +67,30 @@ class HackerEarth:
 		res = json.load(res)
 
 		return res
+
+	# handles what to write in output file 
+	# according to API's response
+	def Output(self, response):
+		# btw I don't like some behaviour of their API
+		# doesn't give 'async' parameter for compile request
+
+		output = "see this on web : " + response['web_link']
+
+		output += "\ncompile status : " + response['compile_status']
+		output += "\nrun status : " + response['run_status']['status']
+
+		if(response['run_status']['status'] == 'AC'):
+			output += "\noutput : " + response['run_status']['output']
+
+		if(response['run_status']['time_used']):
+			output += "\ntime used : " + response['run_status']['time_used']
+
+		output += "\nrun status detail : " + response['run_status']['status_detail']
+
+		# output text
+		return output
+
+
+
+		
+		
