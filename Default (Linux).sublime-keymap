@@ -12,5 +12,10 @@
 	{
 		"keys": ["ctrl+alt+h"],
 		"command": "hacklime_help"
+	},
+
+	{
+		"keys": ["ctrl+alt+o"],
+		"command": "hacklime_output"
 	}
 ]
