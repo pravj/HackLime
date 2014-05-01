@@ -15,7 +15,7 @@
 	},
 
 	{
-		"keys": ["ctrl+alt+o"],
-		"command": "hacklime_output"
+		"keys": ["ctrl+alt+e"],
+		"command": "hacklime_error"
 	}
 ]

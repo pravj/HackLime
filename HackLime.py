@@ -22,28 +22,27 @@ import HelpGuide
 # class for code-compile command
 class HacklimeCompileCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
-		while(self.view.is_loading()):
-			pass
 		filepath = self.view.file_name().encode("utf-8")
 		#print (filepath)  maybe you are not waiting for it to load all
 		instance = HackerEarth(filepath)
-		print instance.lang
 
 		# HackerEarth API response and text to write in output
 		response = instance.Contact()
-		print response
-		print 'is this before response'
-		output_text = instance.Output(response)
-		print output_text
 
 		"""
 		creates file for output response, if not present already
 		output file will have a prefix 'output_' to main file
 		"""
 
-		# shows the output buffer/file
-		output = HacklimeOutput(self.view, file_handler(filepath), output_text)
-		output.show()
+		# shows error in quick panel
+		if('er' in response):
+			show_error(self.view.window, [response['er']])
+		else:
+			output_text = instance.Output(response)
+
+			# shows the output buffer/file
+			output = HacklimeOutput(self.view, file_handler(filepath), output_text)
+			output.show()
 
 
 # class for code-run command
@@ -54,22 +53,16 @@ class HacklimeRunCommand(sublime_plugin.TextCommand):
 		instance = HackerEarth(filepath)
 
 		response = instance.Contact()
-		print response
-		print 'is this before response'
-		output_text = instance.Output(response)
-		print output_text
 
-		# shows the output buffer/file
-		output = HacklimeOutput(self.view, file_handler(filepath), output_text)
-		output.show()
+		# shows error in quick panel
+		if('er' in response):
+			show_error(self.view.window, [response['er']])
+		else:
+			output_text = instance.Output(response)
 
-
-# opens output file for current file
-class HacklimeOutputCommand(sublime_plugin.TextCommand):
-	def run(self, edit):
-		filepath = self.view.file_name().encode("utf-8")
-		output = HacklimeOutput(self.view, file_handler(filepath))
-		output.show()
+			# shows the output buffer/file
+			output = HacklimeOutput(self.view, file_handler(filepath), output_text)
+			output.show()
 
 
 # class for help with package, kind of ways to use
@@ -97,18 +90,15 @@ class HacklimeHelpCommand(sublime_plugin.WindowCommand):
 
 # shows result in new file
 class HacklimeOutput:
-	def __init__(self, view, output_file, text=None):
+	def __init__(self, view, output_file, text):
 		# view object for current open file
 		self.view = view
 
 		# output file's name
 		self.filename = output_file
 
-		# content to be written in output file
-		if (text == None):
-			self.text = ''
-		else:
-			self.text = text
+		# output file's content
+		self.text = text
 
 	def show(self):
 		# window object containing current view
@@ -136,3 +126,7 @@ def file_handler(filepath):
 	output_File = 'output_' + File.replace(File.split('.')[-1], 'txt')
 
 	return output_File
+
+# shows error in quick panel
+def show_error(errors, window):
+	window.show_quick_panel(errors, None, sublime.MONOSPACE_FONT)

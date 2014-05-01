@@ -61,36 +61,32 @@ class HackerEarth:
 		# btw, why 'urlencode' is not there in 'urllib2' (o.O)
 		req = urllib2.Request(url, urllib.urlencode(self.data))
 
-		# response in JSON format
-		res = urllib2.urlopen(req)
-		print res.getcode()
-		res = json.load(res)
+		# urllib2 error handling
+		try:
+			res = urllib2.urlopen(req)
+			# response in JSON format
+			res = json.load(res)
+
+		except urllib2.URLError as e:
+			res = {'er': 'there was an error in request'}
 
 		return res
 
 	# handles what to write in output file 
 	# according to API's response
 	def Output(self, response):
-		# btw I don't like some behaviour of their API
-		# doesn't give 'async' parameter for compile request
-
 		output = "see this on web : " + response['web_link']
 
 		output += "\ncompile status : " + response['compile_status']
 		output += "\nrun status : " + response['run_status']['status']
 
 		if(response['run_status']['status'] == 'AC'):
-			output += "\noutput : " + response['run_status']['output']
+			output += "\noutput : \n" + response['run_status']['output']
 
-		if(response['run_status']['time_used']):
+		if('time_used' in response['run_status']):
 			output += "\ntime used : " + response['run_status']['time_used']
 
 		output += "\nrun status detail : " + response['run_status']['status_detail']
 
 		# output text
 		return output
-
-
-
-		
-		

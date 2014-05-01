@@ -1,5 +1,4 @@
 *.pyc
-config.py
 test.py
 try.py
 testnewfile.py

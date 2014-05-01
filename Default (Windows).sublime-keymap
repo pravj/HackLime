@@ -7,5 +7,15 @@
 	{
 		"keys": ["ctrl+shift+r"],
 		"command": "hacklime_run"
+	},
+
+	{
+		"keys": ["ctrl+alt+h"],
+		"command": "hacklime_help"
+	},
+
+	{
+		"keys": ["ctrl+alt+e"],
+		"command": "hacklime_error"
 	}
 ]
